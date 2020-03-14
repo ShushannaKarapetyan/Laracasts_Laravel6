@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
     $name = request('name');
-    //is same
+    //it's the same
     $name = $request->name;
 
     return view('test',[
