@@ -27,7 +27,8 @@ Route::get('/', function (Request $request) {
 
 // {post} is any variable which coming from url, f.e id of post
 // url /posts/1
-Route::get('posts/{post}', function ($post){
+
+/*Route::get('posts/{post}', function ($post){
     //return $post;
 
     $posts = [
@@ -42,4 +43,7 @@ Route::get('posts/{post}', function ($post){
     return view('post', [
         'post' => $posts[$post]  ?? "Nothing here yet."    //url is /posts/my-first-post ,  $posts['my-first-post']
     ]);
-});
+});*/
+
+
+Route::get('posts/{post}', 'PostsController@show');
