@@ -25,6 +25,8 @@ Route::get('/', function (Request $request) {
     //url   /?name=<script>alert("hi");</script>
 });
 
+
+
 // {post} is any variable which coming from url, f.e id of post
 // url /posts/1
 
@@ -45,5 +47,13 @@ Route::get('/', function (Request $request) {
     ]);
 });*/
 
-
 Route::get('posts/{post}', 'PostsController@show');
+
+Route::get('/',function (){
+    return view('welcome');
+});
+
+Route::get('/contact',function (){
+    return view('contact');
+});
+
