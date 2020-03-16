@@ -64,7 +64,7 @@ class ArticlesController extends Controller
          Article::create($this->validateArticle());
 
 
-        return redirect('articles');
+        return redirect(route('articles.index'));
     }
 
     //Shows a view to edit an existing resource
@@ -93,7 +93,9 @@ class ArticlesController extends Controller
         #CASE 3
         $article->update($this->validateArticle());
 
-        return redirect('articles/'.$article->id);
+        /*return redirect(route('articles.show', $article));*/
+
+        return redirect($article->path());
 
     }
 
