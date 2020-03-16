@@ -29,17 +29,40 @@ class ArticlesController extends Controller
 
     //Persist the new resource
     public function store(){
-        request()->validate([
+        #CASE 1
+        /*$validatedAttributes = request()->validate([
             'title'=> 'required',
             'excerpt'=>'required',
             'body'=>'required',
-        ]);
+        ]);*/
 
-        $article = new Article();
+        //Article::create($validatedAttributes);
+
+        //CASE 2
+        /*Article::crete(request()->validate([
+            'title'=> 'required',
+            'excerpt'=>'required',
+            'body'=>'required',
+        ]));*/
+
+        #CASE 3
+
+        /*$article = new Article();
         $article->title = request('title');
         $article->excerpt = request('excerpt');
         $article->body = request('body');
-        $article->save();
+        $article->save();*/
+
+        // CASE 4
+        /*Article::create([
+            'title'=>request('title'),
+            'excerpt'=>request('excerpt'),
+            'body'=>request('body')
+        ]);*/
+
+        //CASE 5
+         Article::create($this->validateArticle());
+
 
         return redirect('articles');
     }
@@ -53,21 +76,33 @@ class ArticlesController extends Controller
 
     //Persist the edited resource
     public function update(/*$id*/ Article $article){
+        #CASE 1
+        /*$article = Article::findOrFail($id);*/
+        /*$article->title = request('title');
+        $article->excerpt = request('excerpt');
+        $article->body = request('body');
+        $article->save();*/
 
-        request()->validate([
+        #CASE 2
+        /*$article->update(request()->validate([
+           'title'=> 'required',
+           'excerpt'=>'required',
+           'body'=>'required',
+       ]));*/
+
+        #CASE 3
+        $article->update($this->validateArticle());
+
+        return redirect('articles/'.$article->id);
+
+    }
+
+    protected function validateArticle(){
+        return request()->validate([
             'title'=> 'required',
             'excerpt'=>'required',
             'body'=>'required',
         ]);
-
-        /*$article = Article::findOrFail($id);*/
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
-        $article->save();
-
-        return redirect('articles/'.$article->id);
-
     }
 
     //Delete the resource
