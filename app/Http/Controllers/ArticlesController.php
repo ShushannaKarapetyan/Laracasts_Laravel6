@@ -15,8 +15,10 @@ class ArticlesController extends Controller
     }
 
     //Show a single resource
-    public function show($id){
-        $article = Article::find($id);
+    public function show(/*$id*/ Article $article){
+
+       // $article = Article::findOrFail($id); // redirects 404 page, if the 'id' isn't found
+
         return view('articles.show_article',['article'=>$article]);
     }
 
@@ -43,14 +45,14 @@ class ArticlesController extends Controller
     }
 
     //Shows a view to edit an existing resource
-    public function edit($id){
+    public function edit(/*$id*/ Article $article){
         //find the article associated with the id
-        $article = Article::find($id);
+        /*$article = Article::findOrFail($id);*/
         return view('articles.edit',compact('article'));
     }
 
     //Persist the edited resource
-    public function update($id){
+    public function update(/*$id*/ Article $article){
 
         request()->validate([
             'title'=> 'required',
@@ -58,7 +60,7 @@ class ArticlesController extends Controller
             'body'=>'required',
         ]);
 
-        $article = Article::find($id);
+        /*$article = Article::findOrFail($id);*/
         $article->title = request('title');
         $article->excerpt = request('excerpt');
         $article->body = request('body');
