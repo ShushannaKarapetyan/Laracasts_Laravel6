@@ -79,6 +79,16 @@ Route::get('articles/{article}/edit','ArticlesController@edit');
 Route::put('articles/{article}','ArticlesController@update');
 
 
+/*Route::get('/',function (){
+    $container = new App\Container();
+    $container->bind('example', function(){
+        return new App\Example();
+    });
+    //ddd($container);
 
+    $example = $container->resolve('example');
+    //ddd($example);
+    $example->go();
+});*/
 
 
