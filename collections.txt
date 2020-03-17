@@ -1,0 +1,88 @@
+######Collections#######
+ //php artisan tinker
+
+>>>collect([1,2,3])
+=> Illuminate\Support\Collection {#3017
+     all: [
+       1,
+       2,
+       3,
+     ],
+   }
+
+>>>collect([1,2,3,[4,5,6]])
+Illuminate\Support\Collection {#3065
+     all: [
+       1,
+       2,
+       3,
+       [
+         4,
+         5,
+         6,
+       ],
+     ],
+>>>collect([1,2,3,[4,5,6]])->flatten()
+=>Illuminate\Support\Collection {#3067
+     all: [
+       1,
+       2,
+       3,
+       4,
+       5,
+       6,
+     ],
+   }
+
+$items = collect([1,2,3,4,5,6,7,8,9,10])
+$items->filter(function($item) { return $item >=5;})
+$items->filter(function($item) { return $item % 2 ===0;}) //returns array of pair numbers
+
+=> Illuminate\Support\Collection {#3050
+     all: [
+       1 => 2,
+       3 => 4,
+       5 => 6,
+       7 => 8,
+       9 => 10,
+     ],
+   }
+
+$items->filter(function($item) { return $item % 2 ===0;})->map(function($item){return $item * 3;})
+=> Illuminate\Support\Collection {#3065
+     all: [
+       1 => 6,
+       3 => 12,
+       5 => 18,
+       7 => 24,
+       9 => 30,
+     ],
+   }
+>>>$items->filter(function($item) { return $item % 2 ===0;})->map(function($item){return $item * 3;})->last()
+
+>>>$articles = App\Article::with('tags')->get()
+
+>>>$articles->pluck('title') //returns all articles titles
+
+
+>>>$articles->pluck('tags')->collapse()->pluck('name')->unique()
+=> Illuminate\Support\Collection {#3171
+     all: [
+       "laravel",
+       "php",
+       "education",
+     ],
+   }
+
+/// it's the same
+
+>>>$articles->pluck('tags.*.name')->collapse()->unique()
+
+>>> $relevantTags = $articles->pluck('tags.*.name')->collapse()->unique()->map(function($item){return ucwords($item);})
+=> Illuminate\Support\Collection {#3168
+     all: [
+       "Laravel",
+       "Php",
+       "Education",
+     ],
+   }
