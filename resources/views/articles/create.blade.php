@@ -62,6 +62,21 @@
                     </div>
                 </div>
 
+                <div class="field">
+                    <label for="tags" class="label">Tags</label>
+                    <div class="control select is-multiple">
+                        <select name="tags[]" multiple>
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            @endforeach
+                        </select>
+
+                        @error('tags')
+                            <p class="help is-danger">{{$message}}</p>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="field is-grouped">
                     <div class="control">
                         <button type="submit" class="button is-link">Submit</button>

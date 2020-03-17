@@ -29,7 +29,10 @@ class ArticlesController extends Controller
 
     //Shows a view to create a new resource
     public function create(){
-        return view('articles.create');
+
+        return view('articles.create',[
+            'tags'=>Tag::all()
+        ]);
     }
 
     //Persist the new resource
@@ -66,7 +69,14 @@ class ArticlesController extends Controller
         ]);*/
 
         //CASE 5
-         Article::create($this->validateArticle());
+         /*Article::create($this->validateArticle());*/
+
+         $this->validateArticle();
+         $article = new Article(request(['title','excerpt','body']));
+         $article->user_id = 1;
+         $article->save();
+
+         $article->tags()->attach(request('tags'));
 
 
         return redirect(route('articles.index'));
@@ -109,6 +119,7 @@ class ArticlesController extends Controller
             'title'=> 'required',
             'excerpt'=>'required',
             'body'=>'required',
+            'tags'=>'exists:tags,id' //if the selected tag isn't found, sets a validation error "The selected tags is invalid."
         ]);
     }
 
