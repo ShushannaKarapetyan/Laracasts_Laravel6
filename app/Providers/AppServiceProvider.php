@@ -19,10 +19,15 @@ class AppServiceProvider extends ServiceProvider
         //we can use '$this->app' instead 'app()', because the ServiceProvider has 'protected $app';
         //if we use singleton() instead of bind() in AppServiceProvider->register() , we get same objects
         /*$this->app->singleton('App\Example', function (){*/
-        $this->app->bind('App\Example', function (){
+        /*$this->app->bind('App\Example', function (){
             $collaborator = new Collaborator();
             $foo = "Something";
             return new Example($collaborator,$foo);
+        });*/
+
+
+        $this->app->bind('example', function (){
+            return new Example();
         });
     }
 
