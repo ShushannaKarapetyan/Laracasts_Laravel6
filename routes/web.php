@@ -91,4 +91,27 @@ Route::put('articles/{article}','ArticlesController@update');
     $example->go();
 });*/
 
+/*app()->bind('example',function (){
+    $foo = config('services.foo');
+
+    return new \App\Example($foo);
+});*/
+
+/*Route::get('/',function (App\Example $example){
+    //$example = resolve('example');
+    //$example = resolve(App\Example::class);
+
+    //ddd($example);
+});*/
+
+
+/*app()->bind('App\Example', function (){
+    $collaborator = new App\Collaborator();
+    $foo = "Something";
+    return new \App\Example($collaborator,$foo);
+});*/
+
+/*Route::get('/','PagesController@home');*/
+
+
 
